@@ -1,0 +1,52 @@
+#dropZone {
+    position: relative;
+    border: 10px dotted #6d6d78;
+    border-radius: 20px;
+    color: #6d6d78;
+    font: bold 24px/200px arial;
+    height: 200px;
+    margin: 15px auto;
+    text-align: center;
+    width: 250px;
+}
+
+#dropZone.hover {
+    border: 10px solid #ffcc81;
+    color: #ffcc81;
+}
+
+#dropZone div {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+#dropZone [type="file"] {
+    cursor: pointer;
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+td.details-control {
+    cursor: pointer;
+}
+
+div.details-name-55 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 55em;
+}
+
+div.details-name-110 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 110em;
+}

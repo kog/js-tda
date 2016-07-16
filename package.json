@@ -1,0 +1,35 @@
+{
+  "name": "JS-TDA",
+  "author": "Greg Feigenson <kog@epiphanic.org>",
+  "contributors": [],
+  "description": "A browser-based JavaScript rewrite of Java's Thread Dump Analyzer",
+  "version": "1.0.0",
+  "homepage": "https://github.com/kog/js-tda",
+  "license": "MIT",
+  "main": [
+    "dist/release/js-tda.min.css",
+    "dist/release/js-tda.min.js",
+    "dist/release/index.html"
+  ],
+  "scripts": {
+    "build": "gulp"
+  },
+  "devDependencies": {
+    "gulp": "^3.8.11",
+    "event-stream": "^3.2.2",
+    "gulp-clean": "^0.3.1",
+    "gulp-copy" : "^0.0.2",
+    "gulp-concat": "^2.5.2",
+    "gulp-uglify": "^1.1.0",
+    "gulp-uglifycss": "^1.0.5",
+    "gulp-rename": "^1.2.0",
+    "gulp-wrap": "^0.11.0",
+    "gulp-header": "^1.2.2",
+    "gulp-order": "^1.1.1",
+    "gulp-flatten": "^0.3.0",
+    "gulp-replace": "^0.5.4",
+    "gulp-tar": "^1.9.0",
+    "gulp-gzip": "^1.4.0",
+    "gulp-main-bower-files": "^1.3.1"
+  }
+}
