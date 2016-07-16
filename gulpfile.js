@@ -100,4 +100,4 @@ gulp.task('package', ['prepare-dists'], function() {
     );
 });
 
-gulp.task('default', ['package']);
+gulp.task('default', ['prepare-dists']);
