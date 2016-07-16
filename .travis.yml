@@ -1,8 +1,8 @@
 language: node_js
 node_js:
   - "6.1"
-before_script:
-  - npm -g install bower gulp-cli
+before_install:
+  - npm -g install bower gulp
 install:
   - npm install && bower install
 script:
