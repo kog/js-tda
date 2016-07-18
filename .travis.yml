@@ -1,9 +1,20 @@
 language: node_js
 node_js:
-  - "6.1"
+  - '6.1'
 before_install:
   - npm -g install bower gulp
 install:
   - npm install && bower install
 script:
-  - gulp
+  - gulp package
+deploy:
+  provider: releases
+  api_key:
+    secure: FCAib0wYdzVYa/8pfszmxfarWQWP6GbWvNPetGpczvvNR0ASF30gDAkzAqRSrI+3aPdPEx5pDfAiIyE1FZ4ldi5aRLDOdM9aJX94yioRt1zYOYPmoFMu6e1ihRr5cZpk7PgkATpLe0nffuM4CqQELddSbdLLfm0cKK+R6C5X6bNApDacRNTKvzp7hBbnN0zOtXZ8OrQ1vOCawhHyAKgWXyVZeYV1BcszP+K3ZRd3bja8jmVPJzuHHVZtzLbw6ugj8mnnLft0OIU7HnN80vfiw1UvDAKR3i0PHUNMQ71ZgqMziUS+/0SreVu1jOpiJ57ZobloCgpREgKYWpJK2k7Hlbjx4BSfUq6UvzGaOeurPxP7YeypipfjUX+H89vprxRHcubTBu/bn4HPDf7MPbWR4EZ1ckgFS9giwQrc/tUtiouqXbwpPtjL6oyr7QEWjD7e4+0BxcNsgdq2b8tH4/Z2jxZZJhQ9PHjKaNoytS8kaLB9GssiURcBZ85U+M43WZKtZcSHZg9S7dzBALjhKlHW82o5q/TWN1bBO3GyGmGVyINZaVaekxE2u4SYLyuc2P/YC/06CGHK2uP7kYFk2UQg1HGfM3ns0T+478DYvz5jKIrJaFFWwPht9CLuveD7MViPSpLK2P/AuQ57yhAmUTiZmRzeHxtnO5F+eP7AxOIn4CI=
+  skip_cleanup: true
+  file:
+    - dist/debug.tar.gz
+    - dist/release.tar.gz
+  on:
+    repo: kog/js-tda
+    tags: true
