@@ -36,10 +36,9 @@ OK, so the actual TDA is older and more mature. It has features JS-TDA doesn't, 
 
 Using it
 --
-**TBA**
- * Using it via GitHub hosting
- * Using a "dist" package
- * Building your own
+ * Run the latest build, hosted via [GitHub user pages](https://kog.github.io/js-tda/)
+ * Using a dist package from [GitHub releases](https://github.com/kog/js-tda/releases)
+ * Grab the source and build it (see below)
 
 Build Instructions
 --
