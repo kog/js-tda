@@ -54,7 +54,7 @@ gulp.task('bower', ['clean'], function () {
 
 gulp.task('minify-js', ['bower'], function() {
     return gulp
-        .src(['./build/libs.js', './js/**/*.js'])
+        .src(['./build/libs.js', './assets/js/**/*.js'])
         .pipe(order(['libs.js', 'js']))
         .pipe(concat('js-tda.js'))
         .pipe(wrap('(function(){<%= contents %>}).call(this);'))
@@ -67,7 +67,7 @@ gulp.task('minify-js', ['bower'], function() {
 
 gulp.task('minify-css', ['bower'], function () {
     return gulp
-        .src(['./css/**/*', './build/libs.css'])
+        .src(['./assets/css/**/*', './build/libs.css'])
         .pipe(concat('js-tda.css'))
         .pipe(replace('../fonts','fonts'))
         .pipe(gulp.dest('./dist/debug'))

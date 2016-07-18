@@ -6,8 +6,13 @@ What is this?
 --
 JS-TDA is what the name implies: a browser-based JavaScript reimplementation of the original [Java Thread Dump Analyzer](https://java.net/projects/tda) by Ingo Rockel. Given a log file with one or more standard Sun JDK dump files, JS-TDA will provide users the ability to figure out what their Java app is actually doing.
 
-Here's an example of what it looks like:
- **TBA**
+**Thread dump: thread expanded, tooltip on dump name**
+
+![Thread Dump](https://github.com/kog/js-tda/raw/master/docs/js-tda-dump-index.png)
+
+**Monitor view: monitor expanded, tooltip on long monitor name**
+
+![Monitor View](https://github.com/kog/js-tda/raw/master/docs/js-tda-monitor-view.png)
 
 Why
 --
