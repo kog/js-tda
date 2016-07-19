@@ -14,7 +14,7 @@ git config user.name "Travis CI"
 git config user.email "root@localhost"
 
 # Re-add our origin, using our token from our previous env/global as well as a standard user/repo slug.
-git remote add origin https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git > /dev/null
+git remote add origin https://${GH_PAGES_TOKEN}@github.com/kog/js-tda.git > /dev/null
 
 # Re-write the history of our GH-pages branch
 git checkout -B gh-pages
