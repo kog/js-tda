@@ -1,6 +1,9 @@
 language: node_js
 node_js:
   - '6.1'
+eng:
+  global:
+    - secure: ULn9XDlN+TheJuj/HoWNTKwI+YBS+g/RKiMYFSLK+vw68OeXXWZLFT5+x7TPmGMGU9MdUSIE0WHUeOIcK1J5O3CxqejuicXB8QdQfWhNAJ3MTHIyHQpPlOAe5WsAXNqTl1zg8IdiuFCUVqLhNXsTHOPgQWxaIQXw1G20ieh1INUW+fLdeALpKCFYgBjDVPcKenc2jSSwcoW7qsm5mlwlXTEcM/z0+MvS7zsfZ44n4zYRyyr7NjIeMWsph1PR9h0P3Mf+QVg2ocwaWtqVexzxnpy+H6rV9tKUSGsaFRg3OItS2mVsGnJsgdlXYXtNFXdbe3QmGsJVAOTDCl2DjRAlRoM6Z8Vg4eQfCea5jh6j1kNyDr75e6C+fyWfJn7VyIxAMoDoTMmTRgMW7Cy89Z6LjpNrOzsfe8vEhra4U/2yXrstBRJR8V7OkaysNyNb0LQ0qO//OG56eJshsTBFPWueCAVudnwD1hRwHmQzDRpoamSAk1d4/Q/4sPijAbHM2lDj6zw+a+WDAl9O200SuJKSG9t7B4VyTDGqh32g12NdI8OXMSdt1tJjaONB/C1u7ehSGNAXJn5qtoKYLhDKKIi5X3UjJO5qtgSH7M6yF3cV68+F02fJCCr4xi+HtN8rOwNaxAn/3UDaERXPFRIERsriPiQ4gj261IKAN7/9UvnAS2w=
 before_install:
   - npm -g install bower gulp
 install:
@@ -18,3 +21,5 @@ deploy:
   on:
     repo: kog/js-tda
     tags: true
+after_deploy:
+  - .travis/deploy-gh-pages.sh
