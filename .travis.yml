@@ -9,7 +9,7 @@ before_install:
 install:
   - npm install && bower install
 script:
-  - gulp package --TRAVIS_REPO_SLUG=${TRAVIS_REPO_SLUG} --TRAVIS_COMMIT=${TRAVIS_COMMIT} --TRAVIS_TAG=${TRAVIS_TAG}
+  - gulp package --TRAVIS_REPO_SLUG=${TRAVIS_REPO_SLUG} --TRAVIS_COMMIT=${TRAVIS_COMMIT} --TRAVIS_TAG=${TRAVIS_TAG} --TRAVIS_BUILD_ID=${TRAVIS_BUILD_ID}
 deploy:
   provider: releases
   api_key:

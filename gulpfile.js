@@ -32,6 +32,7 @@ const banner = ['/**',
 const git_repo = gutil.env.TRAVIS_REPO_SLUG || 'localhost/build';
 const git_hash = gutil.env.TRAVIS_COMMIT != undefined ? gutil.env.TRAVIS_COMMIT.substring(0, 8) : '[no hash]';
 const git_tag = gutil.env.TRAVIS_TAG || 'v0.0.0';
+const build_url = gutil.env.TRAVIS_BUILD_ID != undefined ? 'https://travis-ci.org/'+git_repo+'/builds/'+gutil.env.TRAVIS_BUILD_ID : '#';
 
 gulp.task('clean', function () {
     return gulp
@@ -87,6 +88,7 @@ gulp.task('prepare-dists', ['minify-js', 'minify-css'], function () {
             .pipe(replace('$GIT_REPO$', git_repo))
             .pipe(replace('$GIT_HASH$', git_hash))
             .pipe(replace('$GIT_TAG$', git_tag))
+            .pipe(replace('$BUILD_URL$', build_url))
             .pipe(gulp.dest('./dist/debug')),
         gulp.src(['index.html', './dist/fonts', './dist/js-tda.min.css', './dist/js-tda.min.js'])
             .pipe(replace('$GIT_REPO$', git_repo))
@@ -94,6 +96,7 @@ gulp.task('prepare-dists', ['minify-js', 'minify-css'], function () {
             .pipe(replace('$GIT_TAG$', git_tag))
             .pipe(replace('js-tda.css', 'js-tda.min.css'))
             .pipe(replace('js-tda.js', 'js-tda.min.js'))
+            .pipe(replace('$BUILD_URL$', build_url))
             .pipe(gulp.dest('./dist/release'))
     );
 });
