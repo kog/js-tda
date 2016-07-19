@@ -22,4 +22,4 @@ deploy:
     repo: kog/js-tda
     tags: true
 after_deploy:
-  - .travis/deploy-gh-pages.sh
+  - ./deploy-gh-pages.sh
