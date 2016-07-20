@@ -1,6 +1,6 @@
 JS-TDA - A browser-based rewrite of Java's Thread Dump Analyzer
 =============
-[![Build Status](https://travis-ci.org/kog/js-tda.svg?branch=master)](https://travis-ci.org/kog/js-tda) **:: [TRY IT](https://kog.github.io/js-tda/)**
+[![Build Status](https://travis-ci.org/kog/js-tda.svg?branch=master)](https://travis-ci.org/kog/js-tda) ** - [TRY IT](https://kog.github.io/js-tda/)**
 
 What is this?
 --
@@ -43,7 +43,7 @@ Using it
 Build Instructions
 --
 Like all the new web stuff, you're going to need a few things:
- * [Node.js](https://nodejs.org/en/) - the build chain is unfortunately Node browser-based
+ * [Node.js](https://nodejs.org/en/) - the build chain is unfortunately Node based
  * [Bower](https://bower.io/) - for dependency management
  * [Gulp](http://gulpjs.com/) - the build tool
 
