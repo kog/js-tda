@@ -1,6 +1,6 @@
 JS-TDA - A browser-based rewrite of Java's Thread Dump Analyzer
 =============
-[![Build Status](https://travis-ci.org/kog/js-tda.svg?branch=master)](https://travis-ci.org/kog/js-tda)
+[![Build Status](https://travis-ci.org/kog/js-tda.svg?branch=master)](https://travis-ci.org/kog/js-tda) **:: [TRY IT](https://kog.github.io/js-tda/)**
 
 What is this?
 --
