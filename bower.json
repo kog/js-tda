@@ -7,10 +7,10 @@
     "dist/release/js-tda.min.js"
   ],
   "dependencies": {
-    "bootstrap": "~3.3.6",
-    "jsrender": "~0.9.77",
-    "datatables.net": "~1.10.12",
-    "datatables.net-bs": "~1.10.12"
+    "bootstrap": "~3.3.7",
+    "jsrender": "~0.9.88",
+    "datatables.net": "~1.10.16",
+    "datatables.net-bs": "~1.10.16"
   },
   "moduleType": [
     "globals"

@@ -3,7 +3,6 @@
 const gulp = require('gulp');
 const eventStream = require('event-stream');
 const clean = require('gulp-clean');
-const copy = require('gulp-copy');
 const concat = require('gulp-concat');
 const uglify = require('gulp-uglify');
 const uglifyCss = require('gulp-uglifycss');
@@ -30,9 +29,9 @@ const banner = ['/**',
     ''].join('\n');
 
 const git_repo = gutil.env.TRAVIS_REPO_SLUG || 'localhost/build';
-const git_hash = gutil.env.TRAVIS_COMMIT != undefined ? gutil.env.TRAVIS_COMMIT.substring(0, 8) : '[no hash]';
+const git_hash = gutil.env.TRAVIS_COMMIT !== undefined ? gutil.env.TRAVIS_COMMIT.substring(0, 8) : '[no hash]';
 const git_tag = gutil.env.TRAVIS_TAG || 'v0.0.0';
-const build_url = gutil.env.TRAVIS_BUILD_ID != undefined ? 'https://travis-ci.org/'+git_repo+'/builds/'+gutil.env.TRAVIS_BUILD_ID : '#';
+const build_url = gutil.env.TRAVIS_BUILD_ID !== undefined ? 'https://travis-ci.org/'+git_repo+'/builds/'+gutil.env.TRAVIS_BUILD_ID : '#';
 
 gulp.task('clean', function () {
     return gulp
