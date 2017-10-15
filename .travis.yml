@@ -1,19 +1,19 @@
 language: node_js
 node_js:
-  - '6.1'
+- '6.1'
 env:
   global:
-    - secure: MGuCLlvMUPUYDz5b7kQR99xPLYBobYaAMQMXzPwaDGH1YGjHqF0q6hysGoQChEkHgNLb4DwZ1jS4NkyTRU9ORO0EQixSb/rNGe8Yfgkke5eMbvO/RugBEuGiL2pPca3qk8YaHAHwIEIFk1+1k/ytMhdPxGRiWrk/0o5UMK5i4eThnetlwJ1VablnakBbgm+urSmloTTLc46M1oHtgGYypp7aOu4mr1GG6VkQ073pQ2kHX1976RJ269rOutgau6OnZ4fOJjV8ECtRhBhIQiFPRo90ORW8GTPYR+jOzOfEebjMhunkSOsHPg87EqZ+2AvRsJ3E2EUqWSe9sVmBRzEQ1lfzww/wIuLkvrxQfFaXh11COCWsClE4ITqbNScW9/wfA3w7+PHHniXuuL3qgV6tGhJzsOH07burp6uBsy98LAREdcL3yhtMUVpwio/btbNQIrk6WqhPRO0rdel1RK2Q6YFFiBKPLNBwbJj8GXhjHgyaYathbONhHe0V+Q7IqQgckZ9d4B33338xwOfRHATL5LbN3tsLBqM9Cv+QIhkDfY275qOP3+KdzsgenjUCSKw00RUsAy/RZnvavqe6zew74kpJmPMBHWTXSwF1N/trInTmTG0VE6TTvFMeOFYWy97R89FXFzFFTq0ajsmDmjq/m+svXQAosEcK0s4cb/ghB0I=
+  - secure: MGuCLlvMUPUYDz5b7kQR99xPLYBobYaAMQMXzPwaDGH1YGjHqF0q6hysGoQChEkHgNLb4DwZ1jS4NkyTRU9ORO0EQixSb/rNGe8Yfgkke5eMbvO/RugBEuGiL2pPca3qk8YaHAHwIEIFk1+1k/ytMhdPxGRiWrk/0o5UMK5i4eThnetlwJ1VablnakBbgm+urSmloTTLc46M1oHtgGYypp7aOu4mr1GG6VkQ073pQ2kHX1976RJ269rOutgau6OnZ4fOJjV8ECtRhBhIQiFPRo90ORW8GTPYR+jOzOfEebjMhunkSOsHPg87EqZ+2AvRsJ3E2EUqWSe9sVmBRzEQ1lfzww/wIuLkvrxQfFaXh11COCWsClE4ITqbNScW9/wfA3w7+PHHniXuuL3qgV6tGhJzsOH07burp6uBsy98LAREdcL3yhtMUVpwio/btbNQIrk6WqhPRO0rdel1RK2Q6YFFiBKPLNBwbJj8GXhjHgyaYathbONhHe0V+Q7IqQgckZ9d4B33338xwOfRHATL5LbN3tsLBqM9Cv+QIhkDfY275qOP3+KdzsgenjUCSKw00RUsAy/RZnvavqe6zew74kpJmPMBHWTXSwF1N/trInTmTG0VE6TTvFMeOFYWy97R89FXFzFFTq0ajsmDmjq/m+svXQAosEcK0s4cb/ghB0I=
 before_install:
-  - npm -g install bower gulp
+- npm -g install bower gulp
 install:
-  - npm install && bower install
+- npm install && bower install
 script:
-  - gulp package --TRAVIS_REPO_SLUG=${TRAVIS_REPO_SLUG} --TRAVIS_COMMIT=${TRAVIS_COMMIT} --TRAVIS_TAG=${TRAVIS_TAG} --TRAVIS_BUILD_ID=${TRAVIS_BUILD_ID}
+- gulp package --TRAVIS_REPO_SLUG=${TRAVIS_REPO_SLUG} --TRAVIS_COMMIT=${TRAVIS_COMMIT} --TRAVIS_TAG=${TRAVIS_TAG} --TRAVIS_BUILD_ID=${TRAVIS_BUILD_ID}
 deploy:
   provider: releases
   api_key:
-    secure: FCAib0wYdzVYa/8pfszmxfarWQWP6GbWvNPetGpczvvNR0ASF30gDAkzAqRSrI+3aPdPEx5pDfAiIyE1FZ4ldi5aRLDOdM9aJX94yioRt1zYOYPmoFMu6e1ihRr5cZpk7PgkATpLe0nffuM4CqQELddSbdLLfm0cKK+R6C5X6bNApDacRNTKvzp7hBbnN0zOtXZ8OrQ1vOCawhHyAKgWXyVZeYV1BcszP+K3ZRd3bja8jmVPJzuHHVZtzLbw6ugj8mnnLft0OIU7HnN80vfiw1UvDAKR3i0PHUNMQ71ZgqMziUS+/0SreVu1jOpiJ57ZobloCgpREgKYWpJK2k7Hlbjx4BSfUq6UvzGaOeurPxP7YeypipfjUX+H89vprxRHcubTBu/bn4HPDf7MPbWR4EZ1ckgFS9giwQrc/tUtiouqXbwpPtjL6oyr7QEWjD7e4+0BxcNsgdq2b8tH4/Z2jxZZJhQ9PHjKaNoytS8kaLB9GssiURcBZ85U+M43WZKtZcSHZg9S7dzBALjhKlHW82o5q/TWN1bBO3GyGmGVyINZaVaekxE2u4SYLyuc2P/YC/06CGHK2uP7kYFk2UQg1HGfM3ns0T+478DYvz5jKIrJaFFWwPht9CLuveD7MViPSpLK2P/AuQ57yhAmUTiZmRzeHxtnO5F+eP7AxOIn4CI=
+    secure: Qw3XpZBgDJC3GsrO7IooJD5Vh1Yhgaud/OULkVDFo5TyULDE6/RWLJRGPgWdhXtkh2v1OiP16m5cDcMSJ9/HyXhmPzA16hSE3Avc3aLShKY5aCxduG4hyieijjKFbbNLae3Nj+gVnCrTnX6XehjfcD/7wr/aI66vIzE1BvNcKpfOJVafUkGobFpFvobdjTEKh7QX1U/eAGxNsvYv7DbMa8x9RfB+y1gsoEJSgw2qVlUbQJzSrSX5WzRtIjZBYI55s2ZEwA5NlQwkbNr9Nse3wX3PDcETzE/TsZejfLZ/HUHvwHcE132mh/DdsiNU2/fvypgBsB76I8nawprZJbfmSjmZdvPP01PTcCQ9QSB9Fc7mhitZqKZLBLV8kA2aJAysdvRi4PXkUxVI2VqcvFBLqnG0Pdgv5TrITZC9KidWLcVHnXmd62X5UDRBa+TkAfVHDQ4KTa6WvAP9AhGm+qpJxALOqO1U19AxQxWigcv484j5lTlZtwxuwZVfA+DT/JmdnVlgIhT1puR+kz+IyTqdFbOL8/YbRjQoqBZ5nSVxqm+teer7eez+r7WMlK3cZ7EDu9vEYovsbApL+AuWbsqs1mPdljh8qoI7yewM6hbaUe3YLrSGgrPk7xhVd3p15tuag8umG+ZUfbff8/W2nJboC0KnWnMYmC9kIfBNOLEzEDA=
   skip_cleanup: true
   file:
     - dist/debug.tar.gz
@@ -22,4 +22,4 @@ deploy:
     repo: kog/js-tda
     tags: true
 after_deploy:
-  - .travis/deploy-gh-pages.sh
+- ".travis/deploy-gh-pages.sh"
