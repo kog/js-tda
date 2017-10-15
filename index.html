@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>JS-TDA</title>
+
+    <link href="js-tda.min.css" rel="stylesheet"/>
+</head>
+
+<body>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">JS-TDA</a>
+        </div>
+
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">TDA View</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div style="height: 4em">
+        &nbsp;
+    </div>
+
+    <div class="container-fluid" id="dropZoneContainer">
+        <div class="jumbotron" id="dropZoneJumbotron">
+            <div id="dropZone">
+                <div>Drop file to analyze.</div>
+                <input type="file" id="fileInput"/>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid hidden" id="threads">
+        <div class="container-fluid">
+            <div class="col-xs-2" id="dumpContainer">
+                <div class="panel-group" id="dumpAccordion" role="tablist" aria-multiselectable="true">
+                </div>
+            </div>
+            <script>
+                function renderThreads(dumpIndex, collection, threadIndex) {
+                    var dumps = $('#dumpContainer').data('dumps');
+                    var helpers = {getData: function() {return dumps[dumpIndex][collection]}, getDumpIndex: function() { return dumpIndex}, getCollectionType: function() { return collection}};
+                    $('#dumpDetails').html($.templates('#dumpTemplate').render(dumps[dumpIndex], helpers));
+
+                    // If someone linked to the thread via the monitor page, scroll to it, and expand it.
+                    if (undefined != threadIndex) {
+                        var thread = $('#thread-' + threadIndex);
+
+                        thread.closest('td')[0].click();
+                        $('html,body').animate({scrollTop: $(thread).offset().top})
+                    }
+                }
+
+                function renderMonitors(dumpIndex, monitorName) {
+                    var dumps = $('#dumpContainer').data('dumps');
+                    var helpers = {getDumpIndex: function() { return dumpIndex}, sanitizeMonitor: function(raw) { return sanitizeMonitor(raw)}};
+                    $('#dumpDetails').html($.templates('#monitorTemplate').render(dumps[dumpIndex], helpers));
+
+                    // If someone linked to the monitor via a thread page, scroll to it, and expand it.
+                    if (undefined != monitorName) {
+                        var monitor = $('#' + sanitizeMonitor(monitorName));
+
+                        monitor.closest('td')[0].click();
+                        $('html,body').animate({scrollTop: $(monitor).offset().top})
+                    }
+                }
+
+                function sanitizeMonitor(raw) {
+                    return raw.replace('>', '').replace('<', '');
+                }
+
+                function linkifyMonitor(raw, dumpIndex) {
+                    var matches = /(.*) (<0x.*>) (.*)/.exec(raw);
+                    return matches[1] + " <a href='#' onclick='renderMonitors(" + dumpIndex + ", \"" + matches[2] + "\")'>" + matches[2] + "</a> " + matches[3];
+                }
+
+                function linkifyThread(raw, dumpIndex, threadIndex) {
+                    var matches = /"(.*)" (.*)/.exec(raw);
+                    var formattedText = matches[1].length > 50 ? matches[1].substring(0, 50) + '...' : matches[1];
+
+                    return "<a href='#' title='" + matches[1] + "' onclick='renderThreads(" + dumpIndex + ", \"threads\", " + threadIndex + ")'>" + formattedText + "</a> " + matches[2];
+                }
+            </script>
+
+            <div class="col-xs-9" id="dumpDetails">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div style="height: 4em">
+        &nbsp;
+    </div>
+</div>
+
+<footer class="footer">
+    <div class="container">
+        <p class="text-muted"><a href="https://travis-ci.org/kog/js-tda/builds/288164106">kog/js-tda@fdc224f9 (v0.1.4)</a></p>
+    </div>
+</footer>
+
+<script src="js-tda.min.js"></script>
+
+<script>
+    $(function () {
+        var dropZoneSelector = $('#dropZone');
+        var dumpContainer = $('#dumpContainer');
+
+        dropZoneSelector.on('dragover', function () {
+            $(this).addClass('hover');
+        });
+
+        dropZoneSelector.on('dragleave', function () {
+            $(this).removeClass('hover');
+        });
+
+        dropZoneSelector.find('input').on('change', function () {
+            dropZoneSelector.removeClass('hover');
+
+            var file = this.files[0];
+            dumpContainer.data('dumpName', file.name);
+
+            var reader = new FileReader();
+
+            reader.onloadstart = function () {
+                console.log("starting parse...");
+            };
+
+            reader.onload = function (e) {
+                dumps = new Parser(e.target.result).getDumps();
+                dumpContainer.data('dumps', dumps);
+            };
+
+            reader.onloadend = function () {
+                console.log('parse completed...');
+                renderDumps();
+            };
+
+            var renderDumps = function () {
+                var dumps = dumpContainer.data('dumps');
+                console.log(dumps);
+
+                $('#dumpAccordion').html($.templates('#dumpListTemplate').render(dumps));
+
+                var helpers = {getData: function() {return dumps[0].threads}, getDumpIndex: function() {return 0}, getCollectionType: function() { return 'threads'}};
+                $('#dumpDetails').html($.templates('#dumpTemplate').render(dumps[0], helpers));
+
+                $('#dropZoneJumbotron').addClass('hidden');
+                $('#threads').removeClass('hidden');
+            };
+
+            reader.readAsText(file);
+        });
+    });
+</script>
+
+<script id="dumpTemplate" type="text/x-jsrender">
+    <table class="table table-striped table-hover" id='thread-table'>
+        <thead>
+        <tr>
+            <th>Index</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Priority</th>
+            <th>Thread ID</th>
+            <th>Native ID</th>
+            <th>State</th>
+            <th>Address Range</th>
+        </tr>
+        </thead>
+
+        <tbody>
+            {{for ~getData()}}
+                <tr>
+                    <td class="details-control" id="thread-{{:index}}">{{:index}}</td>
+                    <td class=details-control><div class=details-name-55>{{:name}}</div></td>
+                    <td class=details-control>{{if daemon == true}}daemon{{else}}task{{/if}}</td>
+                    <td class=details-control>{{:priority}}</td>
+                    <td class=details-control>{{:threadId}}</td>
+                    <td class=details-control>{{:nativeId}}</td>
+                    <td class=details-control>{{:state}}</td>
+                    <td class=details-control>{{:addressRange}}</td>
+                </tr>
+            {{/for}}
+        </tbody>
+    </table>
+
+    <script>
+        var table = $('#thread-table').DataTable({"paging": false, "bInfo" : false, "order": [[ 0, "asc" ]]});
+
+        // Wire in some JS so we can do a child details record
+        function formatThread(index) {
+            var helpers = {getDumpIndex: function() { return {{:~getDumpIndex()}}}, linkifyMonitor: function (line, dumpIndex) { return linkifyMonitor(line, dumpIndex)}};
+            return $.templates('#rawThreadTemplate').render(dumps[{{:~getDumpIndex()}}].{{:~getCollectionType()}}[index], helpers);
+        }
+
+        $('#thread-table tbody').on('click', 'td.details-control', function () {
+            var tr = $(this).closest('tr');
+            var row = table.row(tr);
+
+            if (row.child.isShown()) {
+                row.child.hide();
+                tr.removeClass('shown');
+            }
+            else {
+                row.child(formatThread(row[0])).show();
+                tr.addClass('shown');
+            }
+        });
+    {{:"<"}}/script>
+
+</script>
+
+<script id="monitorTemplate" type="text/x-jsrender">
+    <table class="table table-striped table-hover" id='monitor-table'>
+        <thead>
+        <tr>
+            <th>Index</th>
+            <th>Address</th>
+            <th>Description</th>
+            <th>Threads Sleeping</th>
+            <th>Threads Waiting</th>
+            <th>Threads Locking</th>
+        </tr>
+        </thead>
+
+        <tbody>
+            {{for monitors}}
+                <tr>
+                    <td class="details-control" id="{{:~sanitizeMonitor(address)}}">{{:#getIndex()}}</td>
+                    <td class=details-control>{{:address}}</td>
+                    <td class=details-control><div class=details-name-55>{{:description}}</div></td>
+                    <td class=details-control>{{:counts['sleeping']}}</td>
+                    <td class=details-control>{{:counts['waiting']}}</td>
+                    <td class=details-control>{{:counts['locking']}}</td>
+                </tr>
+            {{/for}}
+        </tbody>
+    </table>
+
+    <script>
+        var table = $('#monitor-table').DataTable({"paging": false, "bInfo" : false, "order": [[ 0, "asc" ]]});
+
+        // Wire in some JS so we can do a child details record
+        function formatMonitor(item) {
+            var helpers = {getDumpIndex: function() { return {{:~getDumpIndex()}} }, linkifyThread(raw, dumpIndex, threadIndex) {return linkifyThread(raw, dumpIndex, threadIndex)}};
+            return $.templates('#monitorThreadRelationshipTemplate').render(dumps[{{:~getDumpIndex()}}].monitors[item[0]], helpers);
+        }
+
+        $('#monitor-table tbody').on('click', 'td.details-control', function () {
+            var tr = $(this).closest('tr');
+            var row = table.row(tr);
+
+            if (row.child.isShown()) {
+                row.child.hide();
+                tr.removeClass('shown');
+            }
+            else {
+                row.child(formatMonitor(row.data())).show();
+                tr.addClass('shown');
+            }
+        });
+    {{:"<"}}/script>
+
+</script>
+
+<script id="dumpListTemplate" type="text/x-jsrender">
+{{for}}
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="dump{{:#getIndex()}}">
+            <h4 class="panel-title">
+                <a role="button" data-toggle="collapse" data-parent="#dumpAccordion" href="#collapse{{:#getIndex()}}" aria-expanded="true" aria-controls="collapse{{:#getIndex()}}">
+                    <div data-toggle="tooltip" title="{{:dumpType}}">
+                        {{:date}}
+                    </div>
+                </a>
+            </h4>
+        </div>
+        <div id="collapse{{:#getIndex()}}" class="panel-collapse collapse {{if #getIndex() == 0}}in{{/if}}" role="tabpanel" aria-labelledby="dump{{:#getIndex()}}">
+            <div class="panel-body">
+                <div class="list-group">
+                    <div href="#" class="list-group-item list-group-item-info">View</div>
+                    <a href="#" class="list-group-item" onclick="renderThreads({{:#getIndex()}}, 'threads')">Threads ({{:threads.length}} overall)</a>
+
+                    {{if waiting.length > 0}}
+                    <a href="#" class="list-group-item" onclick="renderThreads({{:#getIndex()}}, 'waiting')">Threads waiting for Monitors ({{:waiting.length}} waiting)</a>
+                    {{/if}}
+
+                    {{if sleeping.length > 0}}
+                    <a href="#" class="list-group-item" onclick="renderThreads({{:#getIndex()}}, 'sleeping')">Threads sleeping on Monitors ({{:sleeping.length}} sleeping)</a>
+                    {{/if}}
+
+                    {{if locking.length > 0}}
+                    <a href="#" class="list-group-item" onclick="renderThreads({{:#getIndex()}}, 'locking')">Threads locking Monitors ({{:locking.length}} locking)</a>
+                    {{/if}}
+
+                    <a href="#" class="list-group-item" onclick="renderMonitors({{:#getIndex()}})">Monitors ({{:monitors.length}} total)</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{{/for}}
+
+</script>
+
+<script id="rawThreadTemplate" type="text/x-jsrender">
+<pre>{{:rawLine}}
+{{for stack}}     {{if trim().startsWith('-')}}{{: ~linkifyMonitor(substring(), ~getDumpIndex())}}{{else}}{{>}}{{/if}}
+{{/for}}
+{{if lockedOwnableSynchronizers.length > 0}}         Locked ownable synchronizers:
+{{for lockedOwnableSynchronizers}} {{>}}
+{{/for}}{{/if}}</pre>
+
+</script>
+
+<script id="monitorThreadRelationshipTemplate" type="text/x-jsrender">
+<table class="table table-striped table-hover" id="">
+    {{for threads}}
+        <tr>
+            <td>
+                <div class=details-name-110">
+                    {{if !locking}}waiting on monitor
+                    {{else}}
+                        {{if !sleeping && !waiting}}locked by
+                        {{else !sleeping && waiting}}locks and waits on monitor:
+                        {{else sleeping && !waiting}}locks and sleeps on monitor:
+                        {{/if}}
+                    {{/if}}
+                    {{:~linkifyThread(thread.rawLine, ~getDumpIndex(), thread.index)}}
+                </div>
+            </td>
+        <tr>
+    {{/for}}
+</table>
+
+</script>
+</body>
+</html>
