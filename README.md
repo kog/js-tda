@@ -6,7 +6,7 @@ JS-TDA - A browser-based rewrite of Java's Thread Dump Analyzer
 
 What is this?
 --
-JS-TDA is what the name implies: a browser-based JavaScript reimplementation of the original [Java Thread Dump Analyzer](https://java.net/projects/tda) by Ingo Rockel. Given a log file with one or more standard Sun JDK dump files, JS-TDA will provide users the ability to figure out what their Java app is actually doing.
+JS-TDA is what the name implies: a browser-based JavaScript reimplementation of the original [Java Thread Dump Analyzer](https://github.com/irockel/tda) by Ingo Rockel. Given a log file with one or more standard Sun JDK dump files, JS-TDA will provide users the ability to figure out what their Java app is actually doing.
 
 **Thread dump: thread expanded, tooltip on dump name**
 
@@ -20,7 +20,7 @@ Why
 --
 I've been using TDA for a long, long time. It's a fantastic, no frills utility that helps me figure out what a given process is up to. I've worked at a number of companies where, for whatever reason, I found myself analyzing thread dumps with TDA. Recently I was given a thread dump from a JVM running on Java 8, and that's when I realized TDA didn't (at the time) have support for that format.
 
-I spent some time nosing around the TDA forums and mailing lists and noticed that the last release had been in [2010](https://java.net/projects/tda/lists/announce/archive/2010-02/message/0). At the time the project looked dead. I also ran across the cool [Spotify TDA](https://github.com/spotify/threaddump-analyzer), but the wasn't really what I wanted. I realize there are other tools than TDA, such as the [IBM thread analyzer](https://www.ibm.com/developerworks/community/groups/service/html/communityview?communityUuid=2245aa39-fa5c-4475-b891-14c205f7333c) and [Samurai](http://samuraism.jp/samurai/en/index.html). But damnit, I like TDA.
+I spent some time nosing around the TDA forums and mailing lists and noticed that the last release had been in 2010. At the time the project looked dead. I also ran across the cool [Spotify TDA](https://github.com/spotify/threaddump-analyzer), but the wasn't really what I wanted. I realize there are other tools than TDA, such as the [IBM thread analyzer](https://www.ibm.com/developerworks/community/groups/service/html/communityview?communityUuid=2245aa39-fa5c-4475-b891-14c205f7333c) and [Samurai](http://samuraism.jp/samurai/en/index.html). But damnit, I like TDA.
 
 I considered forking TDA, but it seemed to me that it would actually be fairly useful to have a browser-based, JavaScript version of a thread dump analyzer. Reading the Spotify analyzer and TDA source certainly made this a much easier task: they did all the hard work for me.
 
